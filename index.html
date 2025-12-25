@@ -5,18 +5,38 @@
   <meta charset="UTF-8" />
   <title>Односторінковий сайт</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="./css/styles.css" />
+
+  <!-- Глобальні стилі -->
+  <link rel="stylesheet" href="/css/styles.css" />
 </head>
 
 <body>
 
-  <header class="header">...</header>
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container header-container">
+      <div class="logo">BoviaN</div>
 
+      <nav class="nav">
+        <a href="#home">Головна</a>
+        <a href="#about">Про мене</a>
+        <a href="#services">Послуги</a>
+        <a href="#contact">Контакти</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SPA КОНТЕНТ -->
   <main id="app"></main>
 
-  <footer class="footer">...</footer>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 BoviaN. Усі права захищені.</p>
+    </div>
+  </footer>
 
-  <!-- Підключаємо Vite-модуль -->
+  <!-- Vite + TypeScript -->
   <script type="module" src="/src/main.ts"></script>
 </body>
 
