@@ -1,7 +1,9 @@
-import { homePage } from "../src/pages/home";
-import { aboutPage } from "../src/pages/about";
-import { servicesPage } from "../src/pages/services";
-import { contactPage, initContactEvents } from "../src/pages/contact";
+import '../src/css/styles.css';
+
+import { homePage } from "./pages/home";
+import { aboutPage } from "./pages/about";
+import { servicesPage } from "./pages/services";
+import { contactPage, initContactEvents } from "./pages/contact";
 
 const app = document.getElementById("app");
 if (!app) throw new Error("Елемент #app не знайдено");
