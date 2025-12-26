@@ -1,18 +1,15 @@
-import '../src/css/styles.css';
+import './css/styles.css';
 
 import { homePage } from "./pages/home";
 import { aboutPage } from "./pages/about";
 import { servicesPage } from "./pages/services";
 import { contactPage, initContactEvents } from "./pages/contact";
 
-const app = document.getElementById("app");
-if (!app) throw new Error("Елемент #app не знайдено");
+const app = document.getElementById("app") as HTMLElement;
 
 function render(): void {
-    const app = document.getElementById("app");
-    if (!app) return;
-
     const hash = window.location.hash || "#home";
+
     switch (hash) {
         case "#about":
             app.innerHTML = aboutPage();
@@ -30,4 +27,4 @@ function render(): void {
 }
 
 window.addEventListener("hashchange", render);
-window.addEventListener("load", render);
+window.addEventListener("DOMContentLoaded", render);
