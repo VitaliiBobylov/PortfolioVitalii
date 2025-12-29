@@ -28,17 +28,46 @@ body {
 }
 
 .header-container {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 64px;
 }
 
+/* ---------- LOGO ---------- */
 .logo {
-  font-size: 24px;
-  font-weight: 700;
-  color: #0f172a;
+  display: flex;
+  align-items: center;
 }
+
+.logo img {
+  height: 48px;
+  width: auto;
+  max-width: 160px;
+  transition: transform 0.2s ease;
+}
+
+/* Легка взаємодія */
+.logo img:hover {
+  transform: scale(1.03);
+}
+
+/* Планшети */
+@media (max-width: 1024px) {
+  .logo img {
+    height: 42px;
+  }
+}
+
+/* Мобільні */
+@media (max-width: 768px) {
+  .logo img {
+    height: 36px;
+    max-width: 130px;
+  }
+}
+
 
 .nav a {
   margin-left: 24px;
@@ -51,6 +80,44 @@ body {
 .nav a:hover {
   color: #4f46e5;
 }
+
+/* Сховати бургер на великих екранах */
+.burger {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Мобільне меню (по замовчуванню сховане) */
+.nav {
+  gap: 24px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav {
+    display: none;
+    /* сховати меню */
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    right: 16px;
+    background: white;
+    border: 1px solid #e5e7eb;
+    padding: 16px;
+    border-radius: 8px;
+  }
+
+  .nav.active {
+    display: flex;
+  }
+
+  .burger {
+    display: block;
+  }
+}
+
 
 /* ---------- SECTIONS ---------- */
 .section {

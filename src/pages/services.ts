@@ -1,74 +1,71 @@
+import { projects, Project } from "../data/projects";
+
+function renderProjectCard(project: Project): string {
+  return `
+    <div class="home-card">
+      <img src="${project.image}" alt="${project.title}">
+      <p>${project.description}</p>
+      <a class="button" href="${project.link}" target="_blank">Подивитися</a>
+    </div>
+  `;
+}
+
 export function servicesPage(): string {
   return `
     <section class="section">
       <div class="container">
-        <h2>Проекти</h2>
+        <h2>Проєкти</h2>
         <p>Нижче представлені приклади моїх робіт:</p>
 
-        <div class="home-grid">
-
-          <div class="home-card">
-            <img src="https://vitaliibobylov.github.io/goit-markup-hw-06/images/hero/pkk.jpg" alt="WebStudio" />
-            <p>
-              WebStudio GitHub репозиторій (HTML, CSS, JS)<br>
-              Вебсайт для компанії WebStudio.<br>
-              Адаптивна верстка, ефекти трансформації, модальні вікна.<br>
-              Роль: Розробник<br>
-              Тип: Індивідуальний проект
-            </p>
-            <a class="button" href="https://vitaliibobylov.github.io/goit-markup-hw-06/" target="_blank">
-              Подивитися
-            </a>
-          </div>
-
-          <div class="home-card">
-            <img src="https://aleksandrovich-anastasia.github.io/project-group-17/assets/Rounded-rectangle-Dq35Euo-.webp" alt="Watchcharm" />
-            <p>
-              Репозиторій Watchcharm (HTML, CSS, JS)<br>
-              Цільова сторінка для годинникової компанії.<br>
-              Адаптивний макет, плавна анімація та модальне вікно.<br>
-              Роль: Розробник головного розділу<br>
-              Тип: Груповий проєкт
-            </p>
-            <a class="button" href="https://aleksandrovich-anastasia.github.io/project-group-17/" target="_blank">
-              Подивитися
-            </a>
-          </div>
-
-          <div class="home-card">
-            <img src="https://pixabay.com/get/g098ee54b4df0af4ba7d65e68ccab74b45a443cf7d71a3669b09b5b6ca1178ad34497796218c3a4a1fe835bec55e4a42cba79ad197e81bd92925b08f216433a46_640.jpg" alt="Pixabay API" />
-            <p>
-              Пошук зображень (HTML, CSS, JS, Vite)<br>
-              Додаток з Pixabay API.<br>
-              Пагінація, DOM-маніпуляції, галерея з лайтбоксом.<br>
-              Роль: Розробник<br>
-              Тип: Індивідуальний проєкт
-            </p>
-            <a class="button" href="https://vitaliibobylov.github.io/goit-js-hw-12/" target="_blank">
-              Подивитися
-            </a>
-          </div>
-
-          <div class="home-card">
-            <img src="https://via.placeholder.com/300x150" alt="Coming soon" />
-            <p>Для нових навичок</p>
-            <a class="button" href="#home">Подивитися</a>
-          </div>
-
-          <div class="home-card">
-            <img src="https://via.placeholder.com/300x150" alt="Coming soon" />
-            <p>Для нових навичок</p>
-            <a class="button" href="#home">Подивитися</a>
-          </div>
-
-          <div class="home-card">
-            <img src="https://via.placeholder.com/300x150" alt="Coming soon" />
-            <p>Для нових навичок</p>
-            <a class="button" href="#home">Подивитися</a>
-          </div>
-
+        <div class="home-grid" id="projects-grid">
+          ${projects.map(renderProjectCard).join("")}
         </div>
+
+        <button id="show-form" class="button">Додати проєкт</button>
+
+        <form id="project-form" class="project-form" style="display: none; margin-top: 20px;">
+          <input type="text" id="project-title" placeholder="Назва проєкту" required />
+          <input type="text" id="project-image" placeholder="URL картинки" required />
+          <textarea id="project-description" placeholder="Опис проєкту" required></textarea>
+          <input type="text" id="project-link" placeholder="Посилання на проєкт" required />
+          <button type="submit" class="button">Додати</button>
+        </form>
       </div>
     </section>
   `;
+}
+
+export function initServicesEvents(): void {
+  const showFormBtn = document.getElementById("show-form");
+  const form = document.getElementById("project-form") as HTMLFormElement;
+  const grid = document.getElementById("projects-grid");
+
+  showFormBtn?.addEventListener("click", () => {
+    if (form.style.display === "none") {
+      form.style.display = "flex";
+      form.style.flexDirection = "column";
+      form.style.gap = "8px";
+    } else {
+      form.style.display = "none";
+    }
+  });
+
+  form?.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const title = (document.getElementById("project-title") as HTMLInputElement).value;
+    const image = (document.getElementById("project-image") as HTMLInputElement).value;
+    const description = (document.getElementById("project-description") as HTMLTextAreaElement).value;
+    const link = (document.getElementById("project-link") as HTMLInputElement).value;
+
+    const newProject: Project = { title, image, description, link };
+    projects.push(newProject);
+
+    if (grid) {
+      grid.innerHTML += renderProjectCard(newProject);
+    }
+
+    form.reset();
+    form.style.display = "none";
+  });
 }
